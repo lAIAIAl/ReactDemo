@@ -3,19 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "antd": "^4.16.13",
+    "axios": "^0.21.1",
+    "babel-plugin-import": "^1.13.3",
+    "craco-less": "^1.20.0",
+    "customize-cra": "^1.0.0",
+    "http-proxy-middleware": "^2.0.1",
+    "less": "2.7.3",
+    "less-loader": "5.0.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
+    "react-app-rewired": "^2.1.8",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
+    "store": "^2.0.12",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.14.5"
   }
 }
