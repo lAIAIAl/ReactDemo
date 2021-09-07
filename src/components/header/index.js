@@ -8,6 +8,7 @@ import weatherPic from '../../assets/weather.jpg'
 import { withRouter } from 'react-router'
 import menuList from '../../config/menuConfig'
 import {Modal} from 'antd'
+import LinkButton from '../link-button'
 
 class Header extends Component {
     state = {
@@ -16,7 +17,7 @@ class Header extends Component {
         weather:'',
     }
     getTime = ()=>{
-        setInterval(() => {
+        this.timeInterval =  setInterval(() => {
             const currentTime = formateDate(Date.now())
             this.setState({currentTime})
         }, 1000);
@@ -69,6 +70,9 @@ class Header extends Component {
         /* this.getWeather() */
         this.setState({weather:'晴天',dayPictureUrl:weatherPic})
     }
+    componentWillUnmount(){
+        clearInterval(this.timeInterval)
+    }
     render() {
         const {currentTime,dayPictureUrl,weather} = this.state;
         const title = this.getTitle();
@@ -77,7 +81,7 @@ class Header extends Component {
             <div className='header'>
                 <div className='header-top'>
                     <span>欢迎,{username}</span>
-                    <a href='javascript:' onClick={this.logout}>退出</a>
+                    <LinkButton onClick={this.logout}>退出</LinkButton>
                 </div>
                 <div className='header-bottom'>
                     <div className='header-bottom-left'>{title}</div>

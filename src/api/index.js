@@ -19,7 +19,79 @@ export function reqLogin(username, password) {
 export const reqLogin = (username, password) => ajax(BASE + '/login', {username, password}, 'POST')
 
 // 获取一级/二级分类的列表
-export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', {parentId})
+export const reqCategorys = (parentId) => //ajax(BASE + '/manage/category/list', {parentId})
+{
+   return new Promise(function(resolve,reject){
+      setTimeout(() => {
+        if(parentId ==='0'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'0',name:'电器',id:'1'},
+            {parentId:'0',name:'家具',id:'2'},
+            {parentId:'0',name:'厨具',id:'3'},
+            {parentId:'0',name:'穿着',id:'4'},
+            {parentId:'0',name:'工具',id:'5'},
+          ]})
+        }
+        else if(parentId === '1'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'1',name:'电脑',id:'11',},
+            {parentId:'1',name:'手机',id:'12',},
+            {parentId:'1',name:'电视',id:'13',},
+            {parentId:'1',name:'空调',id:'14',},
+          ]})
+        }
+        else if(parentId === '2'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'2',name:'桌子',id:'21',},
+            {parentId:'2',name:'椅子',id:'22',},
+            {parentId:'2',name:'橱窗',id:'23',},
+            {parentId:'2',name:'凳子',id:'24',},
+          ]})
+        }
+        else if(parentId === '3'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'3',name:'菜刀',id:'31',},
+            {parentId:'3',name:'叉子',id:'32',},
+            {parentId:'3',name:'勺子',id:'33',},
+            {parentId:'3',name:'碗',id:'34',},
+          ]})
+        }
+        else if(parentId === '4'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'4',name:'衣服',id:'41',},
+            {parentId:'4',name:'裤子',id:'42',},
+            {parentId:'4',name:'鞋子',id:'43',},
+            {parentId:'4',name:'袜子',id:'44',},
+          ]})
+        }
+        else if(parentId === '5'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'5',name:'螺丝刀',id:'51',},
+            {parentId:'5',name:'开罐器',id:'52',},
+            {parentId:'5',name:'电钻',id:'53',},
+            {parentId:'5',name:'锤子',id:'54',},
+          ]})
+        }
+        else{
+          resolve({
+            status:'-1'
+          })
+        }
+      }, 1000);
+   })
+}
 
 // 添加分类
 export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add', {categoryName, parentId}, 'POST')
