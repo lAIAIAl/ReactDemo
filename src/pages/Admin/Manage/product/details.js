@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-
-export default class Product extends Component {
+/* 
+    product详情子路由组件
+*/
+export default class ProductDetails extends Component {
     render() {
         return (
             <div>
-                pro
+                ProductDetails
             </div>
         )
     }

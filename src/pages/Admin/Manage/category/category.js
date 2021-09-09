@@ -8,11 +8,11 @@ import {
   Modal
 } from 'antd'
 
-import LinkButton from '../../../components/link-button'
+import LinkButton from '../../../../components/link-button'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 import {PlusOutlined} from '@ant-design/icons'
-import {reqCategorys} from '../../../api/index'
+import {reqCategorys} from '../../../../api/index'
 /*
 商品分类路由
  */
@@ -180,7 +180,6 @@ export default class Category extends Component {
                 onCancel={this.handleCancel}
               >
                 <UpdateForm
-                  categoryName={category.name}
                   setForm={(form) => {this.form = form}}
                 />
               </Modal>

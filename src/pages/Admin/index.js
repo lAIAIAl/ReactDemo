@@ -9,8 +9,8 @@ import Home from './Home';
 import Line from './Charts/line'
 import Bar from './Charts/bar'
 import Pie from './Charts/pie'
-import Product from './Manage/product'
-import Category from './Manage/category'
+import Product from './Manage/product/product'
+import Category from './Manage/category/category'
 import User from './User'
 const {  Footer, Sider, Content } = Layout;
 

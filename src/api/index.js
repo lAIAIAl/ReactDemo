@@ -8,6 +8,7 @@
 import jsonp from 'jsonp'
 import {message} from 'antd'
 import ajax from './ajax'
+import { post } from '../utils/request';
 
 // const BASE = 'http://localhost:5000'
 const BASE = ''
@@ -93,6 +94,56 @@ export const reqCategorys = (parentId) => //ajax(BASE + '/manage/category/list',
    })
 }
 
+export const reqProducts = (conditions)=>{
+  let productInfo = 
+    {products:[
+      {
+        id: '1',
+        name: '胡彦斌',
+        price: 32333,
+        descripition: '西湖区湖底公园1号',
+        status:0
+      },
+      {
+        id: '2',
+        name: '胡彦祖',
+        price: 4342,
+        descripition: '西湖区湖底公园1号',
+        status:1
+      }]}
+    return new Promise((resolve,reject)=>{
+        post(`http://localhost:8083/request/req-products`,conditions).then(
+          response => {
+            //请求成功后通知App更新状态
+              console.log(response.data.data)
+              productInfo = response.data.data  
+              resolve(productInfo)
+            },
+          error => {
+            //请求失败后通知App更新状态
+              console.log(error)
+              reject(error)
+          }
+        )
+    })
+}
+export const reqUpdateStatus = (productId, status) =>{
+  return new Promise((resolve,reject)=>{
+      const newStatus = status ==0? 1:0
+      post(`http://localhost:8083/request/update-products-status`,{id:productId,status:newStatus}).then(
+        response => {
+            if(response.data.status==0)
+              resolve(0)
+            else
+              resolve(1)
+          },
+        error => {
+          resolve(0)
+        }
+      )
+  })
+}
+
 // 添加分类
 export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add', {categoryName, parentId}, 'POST')
 
@@ -103,10 +154,10 @@ export const reqUpdateCategory = ({categoryId, categoryName}) => ajax(BASE + '/m
 export const reqCategory = (categoryId) => ajax(BASE + '/manage/category/info', {categoryId})
 
 // 获取商品分页列表
-export const reqProducts = (pageNum, pageSize) => ajax(BASE + '/manage/product/list', {pageNum, pageSize})
-
+/* export const reqProducts = (pageNum, pageSize) => ajax(BASE + '/manage/product/list', {pageNum, pageSize})
+ */
 // 更新商品的状态(上架/下架)
-export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/product/updateStatus', {productId, status}, 'POST')
+/* export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/product/updateStatus', {productId, status}, 'POST') */
 
 
 
