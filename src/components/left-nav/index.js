@@ -36,9 +36,10 @@ class LeftNav extends Component {
         this.menuNode = this.getMenuNodes(menuList)
     }
     render() {
-        const path = this.props.location.pathname.replace('/product','');
+        let path = this.props.location.pathname;
         const group = path.split('/')
         let selected = group.slice(0,3).join('/')
+        path = path.indexOf('/product')==-1 ?path:group.slice(0,4).join('/')
         console.log(selected,path)
 
         return (

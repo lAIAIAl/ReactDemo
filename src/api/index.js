@@ -29,10 +29,13 @@ export const reqCategorys = (parentId) => //ajax(BASE + '/manage/category/list',
             status:'0',
             data:[
             {parentId:'0',name:'电器',id:'1'},
-            {parentId:'0',name:'家具',id:'2'},
-            {parentId:'0',name:'厨具',id:'3'},
-            {parentId:'0',name:'穿着',id:'4'},
-            {parentId:'0',name:'工具',id:'5'},
+            {parentId:'0',name:'电子产品',id:'2'},
+            {parentId:'0',name:'食品',id:'3'},
+            {parentId:'0',name:'美妆',id:'4'},
+            {parentId:'0',name:'办公',id:'5'},
+            {parentId:'0',name:'生活用品',id:'6'},
+            {parentId:'0',name:'穿着',id:'7'},
+            {parentId:'0',name:'家具',id:'8'},
           ]})
         }
         else if(parentId === '1'){
@@ -40,49 +43,77 @@ export const reqCategorys = (parentId) => //ajax(BASE + '/manage/category/list',
             status:'0',
             data:[
             {parentId:'1',name:'电脑',id:'11',},
-            {parentId:'1',name:'手机',id:'12',},
-            {parentId:'1',name:'电视',id:'13',},
-            {parentId:'1',name:'空调',id:'14',},
+            {parentId:'1',name:'电视',id:'12',},
+            {parentId:'1',name:'空调',id:'13',},
+            {parentId:'1',name:'电扇',id:'14',},
+            {parentId:'1',name:'冰箱',id:'15',},
           ]})
         }
         else if(parentId === '2'){
           resolve({
             status:'0',
             data:[
-            {parentId:'2',name:'桌子',id:'21',},
-            {parentId:'2',name:'椅子',id:'22',},
-            {parentId:'2',name:'橱窗',id:'23',},
-            {parentId:'2',name:'凳子',id:'24',},
+            {parentId:'2',name:'手机',id:'21',},
+            {parentId:'2',name:'笔记本电脑',id:'22',},
+            {parentId:'2',name:'电子表',id:'23',},
           ]})
         }
         else if(parentId === '3'){
           resolve({
             status:'0',
             data:[
-            {parentId:'3',name:'菜刀',id:'31',},
-            {parentId:'3',name:'叉子',id:'32',},
-            {parentId:'3',name:'勺子',id:'33',},
-            {parentId:'3',name:'碗',id:'34',},
+            {parentId:'3',name:'饮料',id:'31',},
+            {parentId:'3',name:'面包',id:'32',},
+            {parentId:'3',name:'泡面',id:'33',},
           ]})
         }
         else if(parentId === '4'){
           resolve({
             status:'0',
             data:[
-            {parentId:'4',name:'衣服',id:'41',},
-            {parentId:'4',name:'裤子',id:'42',},
-            {parentId:'4',name:'鞋子',id:'43',},
-            {parentId:'4',name:'袜子',id:'44',},
+            {parentId:'4',name:'口红',id:'41',},
+            {parentId:'4',name:'卸妆油',id:'42',},
+            {parentId:'4',name:'粉底',id:'43',},
           ]})
         }
         else if(parentId === '5'){
           resolve({
             status:'0',
             data:[
-            {parentId:'5',name:'螺丝刀',id:'51',},
-            {parentId:'5',name:'开罐器',id:'52',},
-            {parentId:'5',name:'电钻',id:'53',},
-            {parentId:'5',name:'锤子',id:'54',},
+            {parentId:'5',name:'笔记本',id:'51',},
+            {parentId:'5',name:'水笔',id:'52',},
+            {parentId:'5',name:'订书机',id:'53',},
+            {parentId:'5',name:'打印机',id:'54',},
+          ]})
+        }
+        else if(parentId === '6'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'6',name:'菜刀',id:'61',},
+            {parentId:'6',name:'叉子',id:'62',},
+            {parentId:'6',name:'勺子',id:'63',},
+            {parentId:'6',name:'碗',id:'64',},
+          ]})
+        }
+        else if(parentId === '7'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'7',name:'衣服',id:'71',},
+            {parentId:'7',name:'裤子',id:'72',},
+            {parentId:'7',name:'鞋子',id:'73',},
+            {parentId:'7',name:'袜子',id:'74',},
+          ]})
+        }
+        else if(parentId === '8'){
+          resolve({
+            status:'0',
+            data:[
+            {parentId:'8',name:'桌子',id:'81',},
+            {parentId:'8',name:'椅子',id:'82',},
+            {parentId:'8',name:'橱窗',id:'83',},
+            {parentId:'8',name:'凳子',id:'84',},
           ]})
         }
         else{
@@ -179,10 +210,41 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
 })*/
 
 // 删除指定名称的图片
-export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST')
+/* export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST') */
+export const reqDeleteImg = (name)=>{
+  return new Promise((resolve,reject)=>{
+    post(`http://localhost:8083/request/delete-picture`,{name:name}).then(
+      response => {
+          if(response.data.status==0)
+            resolve(0)
+          else
+            resolve(1)
+        },
+      error => {
+        resolve(1)
+      }
+    )
+  })
+}
 
 // 添加/修改商品
-export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/' + ( product._id?'update':'add'), product, 'POST')
+/* export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/' + ( product._id?'update':'add'), product, 'POST') */
+export const reqAddOrUpdateProduct = (product) =>{
+  return new Promise((resolve,reject)=>{
+    post(`http://localhost:8083/request/add-update-product`,{product}).then(
+      response => {
+          if(response.data.status==0)
+            resolve(0)
+          else
+            resolve(1)
+        },
+      error => {
+        resolve(1)
+      }
+    )
+  })
+}
+
 // 修改商品
 // export const reqUpdateProduct = (product) => ajax(BASE + '/manage/product/update', product, 'POST')
 
