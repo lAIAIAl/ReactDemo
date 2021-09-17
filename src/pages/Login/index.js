@@ -7,9 +7,11 @@ import { post } from '../../utils/request';
 import memoryUtil from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 import { Redirect } from 'react-router-dom';
+import defaultUrl from '../../utils/current';
+
 export default class Login extends Component {
     onFinish = (values) => {
-        post(`http://localhost:8083/site/login`,values).then(
+        post(defaultUrl+`/site/login`,values).then(
 			response => {
 				//请求成功后通知App更新状态
                 if(response && response.data.code === 20000){

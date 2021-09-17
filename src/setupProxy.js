@@ -1,8 +1,8 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
-
+import defaultUrl from './utils/current'
 module.exports = function (app) {
   app.use(createProxyMiddleware('/api', {
-    target: 'http://localhost:8083',
+    target: defaultUrl,
     secure: false,
     changeOrigin: true,
     pathRewrite: {

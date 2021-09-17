@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Upload, Modal,message } from 'antd';
+import { Upload, Modal,message} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import {reqDeleteImg} from '../../../../api/index';
 
@@ -76,8 +76,8 @@ class PicturesWall extends Component {
   fileList: 所有已上传图片文件对象的数组
    */
   handleChange = async ({ file, fileList }) => {
-    console.log('handleChange()', file.status, fileList.length, file===fileList[fileList.length-1])
-    console.log(file)
+    let flag = 0
+    const that = this
     // 一旦上传成功, 将当前上传的file的信息修正(name, url)
     if(file.status==='done') {
       const result = file.response  // {status: 0, data: {name: 'xxx.jpg', url: '图片地址'}}
@@ -92,17 +92,30 @@ class PicturesWall extends Component {
         message.error('上传图片失败')
       }
     } else if (file.status==='removed') { // 删除图片
-      const result = await reqDeleteImg(file.name)
-      console.log(result)
-      if (result===0) {
-        message.success('删除图片成功!')
-      } else {
-        message.error('删除图片失败!')
-      }
+      flag = 1
+      Modal.confirm({
+        /* title:'c', */
+        content: '是否同时删除远程图片？',
+        onOk:async()=>{
+          const result = await reqDeleteImg(file.name)
+          console.log(result)
+          if (result===0) {
+            message.success('删除图片成功!')
+          } else {
+            message.error('删除图片失败!')
+          }
+          that.setState({ fileList })
+        },
+        onCancel(){
+          that.setState({ fileList })
+        }
+      })
+
     }
 
     // 在操作(上传/删除)过程中更新fileList状态
-    this.setState({ fileList })
+    if(flag==0)
+      this.setState({ fileList })
   };
 
   render() {

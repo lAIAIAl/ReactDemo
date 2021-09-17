@@ -9,9 +9,10 @@ import jsonp from 'jsonp'
 import {message} from 'antd'
 import ajax from './ajax'
 import { post } from '../utils/request';
+import defaultUrl from '../utils/current';
 
 // const BASE = 'http://localhost:5000'
-const BASE = ''
+const BASE = '';
 // 登陆
 /*
 export function reqLogin(username, password) {
@@ -143,7 +144,7 @@ export const reqProducts = (conditions)=>{
         status:1
       }]}
     return new Promise((resolve,reject)=>{
-        post(`http://localhost:8083/request/req-products`,conditions).then(
+        post(defaultUrl+'/request/req-products',conditions).then(
           response => {
             //请求成功后通知App更新状态
               console.log(response.data.data)
@@ -161,7 +162,7 @@ export const reqProducts = (conditions)=>{
 export const reqUpdateStatus = (productId, status) =>{
   return new Promise((resolve,reject)=>{
       const newStatus = status ==0? 1:0
-      post(`http://localhost:8083/request/update-products-status`,{id:productId,status:newStatus}).then(
+      post(defaultUrl+'/request/update-products-status',{id:productId,status:newStatus}).then(
         response => {
             if(response.data.status==0)
               resolve(0)
@@ -213,7 +214,7 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
 /* export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST') */
 export const reqDeleteImg = (name)=>{
   return new Promise((resolve,reject)=>{
-    post(`http://localhost:8083/request/delete-picture`,{name:name}).then(
+    post(defaultUrl+'/request/delete-picture',{name:name}).then(
       response => {
           if(response.data.status==0)
             resolve(0)
@@ -231,7 +232,7 @@ export const reqDeleteImg = (name)=>{
 /* export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/' + ( product._id?'update':'add'), product, 'POST') */
 export const reqAddOrUpdateProduct = (product) =>{
   return new Promise((resolve,reject)=>{
-    post(`http://localhost:8083/request/add-update-product`,{product}).then(
+    post(defaultUrl+'/request/add-update-product',{product}).then(
       response => {
           if(response.data.status==0)
             resolve(0)

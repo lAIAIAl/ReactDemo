@@ -57,14 +57,14 @@ export default class RichTextEditor extends Component {
     return new Promise(
       (resolve, reject) => {
         const xhr = new XMLHttpRequest()
-        xhr.open('POST', '/manage/img/upload')
+        xhr.open('POST', 'http://localhost:8083/request/add-picture')
         const data = new FormData()
         data.append('image', file)
         xhr.send(data)
         xhr.addEventListener('load', () => {
           const response = JSON.parse(xhr.responseText)
-          const url = response.data.url // 得到图片的url
-          resolve({data: {link: url}})
+          const url = response.url // 得到图片的url
+          resolve({data: {link: 'http://localhost:8083/'+url.split('/web/')[1]}})
         })
         xhr.addEventListener('error', () => {
           const error = JSON.parse(xhr.responseText)

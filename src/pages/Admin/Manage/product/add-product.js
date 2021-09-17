@@ -19,6 +19,10 @@ import LinkButton from '../../../../components/link-button'
 
 import PicturesWall from './pictures-wall'
 
+import RichTextEditor from './rich-text-editor'
+
+import { reqAddOrUpdateProduct } from '../../../../api'
+
 const {Item} = Form
 const {TextArea} = Input
 
@@ -29,12 +33,34 @@ export default class AddProduct extends Component {
     this.pw = React.createRef()
     this.editor = React.createRef()
   }
+  changeCagetory = (value, selectedOptions)=>{
+    console.log(value,selectedOptions)
+    this.category = selectedOptions[0].label
+    this.category += selectedOptions[1]? '->'+selectedOptions[1].label:''
+  }
   submit = async()=>{
     try {
 	    const values = await this.formRef.current.validateFields();
       const imgs = this.pw.current.getImgs()
+      const details = this.editor.current.getDetail()
 	    console.log('Success:', values,imgs);
 	    message.success('提交校验成功')
+      values.imgs = imgs.join(',')
+      values.details = details
+      if(this.isUpdate) {
+        values.id = this.product.id
+      }
+      values.category_ids = values.category.join(',')
+      values.category = this.category
+      // 2. 调用接口请求函数去添加/更新
+      const result = await reqAddOrUpdateProduct(values)
+      // 3. 根据结果提示
+      if (result===0) {
+        message.success(`${this.isUpdate ? '更新' : '添加'}商品成功!`)
+        this.props.history.goBack()
+      } else {
+        message.error(`${this.isUpdate ? '更新' : '添加'}商品失败!`)
+      }
 	  } catch (errorInfo) {
 	    console.log('Failed:', errorInfo);
 	    message.warn('提交校验失败')
@@ -53,12 +79,11 @@ export default class AddProduct extends Component {
     const product =  this.props.location.state
     this.isUpdate = !!product
     this.product = product || {}
-    console.log(product)
+    this.category = product?product.category:''
   }
   render() {
     const {isUpdate,product} = this
     const { imgs, details} = product
-
     const title = (
       <span>
         <LinkButton>  
@@ -110,13 +135,14 @@ export default class AddProduct extends Component {
               options={categoryOptions}
               expandTrigger="hover"
               changeOnSelect 
+              onChange={this.changeCagetory}
             />
           </Item>
           <Item label='商品图片'>
-            <PicturesWall ref={this.pw} imgs={imgs.split(',')} />
+            <PicturesWall ref={this.pw} imgs={!imgs?[]:imgs.split(',')} />
           </Item>
-          <Item label='商品详情'>
-            商品详情
+          <Item label='商品详情' labelCol={{span: 2}} wrapperCol={{span: 20}}>
+            <RichTextEditor ref={this.editor} detail={details}/>
           </Item>
           <Item>
             <Button type='primary' onClick={this.submit}>提交</Button>
