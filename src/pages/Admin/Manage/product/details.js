@@ -8,6 +8,9 @@ import {ArrowLeftOutlined} from '@ant-design/icons'
 import LinkButton from '../../../../components/link-button'
 
 import './product.less'
+
+import defaultUrl from '../../../../utils/current';
+
 const Item = List.Item
 /* 
     product详情子路由组件
@@ -26,8 +29,9 @@ export default class ProductDetails extends Component {
     }
     
     render() {
-        const {name, description, price,imgs} = this.props.location.state.product
+        let {name, description, price,imgs,details} = this.props.location.state.product
         const {categoryName1, categoryName2} = this.state
+        imgs = imgs===''?[]:imgs.split(',')
         const title = (
             <span>
               <LinkButton>
@@ -63,21 +67,15 @@ export default class ProductDetails extends Component {
                 <span className="left">商品图片:</span>
                 <span>
                   {
-                    /* imgs.map(img => (
+                    imgs.map(img => (
                       <img
                         key={img}
-                        src={img}
+                        src={defaultUrl+'/image/'+img}
                         className="product-img"
                         alt="img"
                       />
-                    )) */
+                    ))
                   }
-                  <img
-                        key={imgs}
-                        src={imgs}
-                        className="product-img"
-                        alt="img"
-                      />
                 </span>
               </Item>
               <Item>
@@ -85,7 +83,7 @@ export default class ProductDetails extends Component {
                 {/* 
                   dangerouslySetInnerHTML 
                  */}
-                <span dangerouslySetInnerHTML={{__html: description}}>
+                <span dangerouslySetInnerHTML={{__html: details}}>
                 </span>
               </Item>
       

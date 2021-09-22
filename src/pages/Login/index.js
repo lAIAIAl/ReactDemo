@@ -11,7 +11,7 @@ import defaultUrl from '../../utils/current';
 
 export default class Login extends Component {
     onFinish = (values) => {
-        post(defaultUrl+`/site/login`,values).then(
+        post(defaultUrl+'/site/login',values).then(
 			response => {
 				//请求成功后通知App更新状态
                 if(response && response.data.code === 20000){

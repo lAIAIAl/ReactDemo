@@ -161,10 +161,10 @@ export const reqProducts = (conditions)=>{
 }
 export const reqUpdateStatus = (productId, status) =>{
   return new Promise((resolve,reject)=>{
-      const newStatus = status ==0? 1:0
+      const newStatus = status ===0? 1:0
       post(defaultUrl+'/request/update-products-status',{id:productId,status:newStatus}).then(
         response => {
-            if(response.data.status==0)
+            if(response.data.status===0)
               resolve(0)
             else
               resolve(1)
@@ -216,7 +216,7 @@ export const reqDeleteImg = (name)=>{
   return new Promise((resolve,reject)=>{
     post(defaultUrl+'/request/delete-picture',{name:name}).then(
       response => {
-          if(response.data.status==0)
+          if(response.data.status===0)
             resolve(0)
           else
             resolve(1)
@@ -234,7 +234,7 @@ export const reqAddOrUpdateProduct = (product) =>{
   return new Promise((resolve,reject)=>{
     post(defaultUrl+'/request/add-update-product',{product}).then(
       response => {
-          if(response.data.status==0)
+          if(response.data.status===0)
             resolve(0)
           else
             resolve(1)
@@ -251,12 +251,13 @@ export const reqAddOrUpdateProduct = (product) =>{
 
 
 // 获取所有角色的列表
-export const reqRoles = () => ajax(BASE + '/manage/role/list')
+/* export const reqRoles = () => ajax(BASE + '/manage/role/list') */
+export const reqRoles = () => ajax(defaultUrl+'/request/get-roles')
 // 添加角色
-export const reqAddRole = (roleName) => ajax(BASE + '/manage/role/add', {roleName}, 'POST')
+export const reqAddRole = (roleName) => ajax(defaultUrl + '/request/add-role', {roleName}, 'POST')
 // 添加角色
-export const reqUpdateRole = (role) => ajax(BASE + '/manage/role/update', role, 'POST')
-
+/* export const reqUpdateRole = (role) => ajax(BASE + '/manage/role/update', role, 'POST') */
+export const reqUpdateRole = (role) => ajax(defaultUrl + '/request/update-role', role, 'POST')
 
 // 获取所有用户的列表
 export const reqUsers = () => ajax(BASE + '/manage/user/list')

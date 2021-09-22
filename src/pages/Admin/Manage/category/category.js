@@ -133,7 +133,7 @@ export default class Category extends Component {
         // 读取状态数据
         const {categorys, subCategorys, parentId, parentName, loading, showStatus} = this.state
         // 读取指定的分类
-        const category = this.category || {} // 如果还没有指定一个空对象
+        //const category = this.category || {} // 如果还没有指定一个空对象
 
         // card的左侧
         const extra = (

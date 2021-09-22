@@ -8,6 +8,7 @@ import {Editor} from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import defaultUrl from '../../../../utils/current'
 
 
 export default class RichTextEditor extends Component {
@@ -57,14 +58,14 @@ export default class RichTextEditor extends Component {
     return new Promise(
       (resolve, reject) => {
         const xhr = new XMLHttpRequest()
-        xhr.open('POST', 'http://localhost:8083/request/add-picture')
+        xhr.open('POST', defaultUrl+'/request/add-picture')
         const data = new FormData()
         data.append('image', file)
         xhr.send(data)
         xhr.addEventListener('load', () => {
           const response = JSON.parse(xhr.responseText)
           const url = response.url // 得到图片的url
-          resolve({data: {link: 'http://localhost:8083/'+url.split('/web/')[1]}})
+          resolve({data: {link: defaultUrl+url.split('/web')[1]}})
         })
         xhr.addEventListener('error', () => {
           const error = JSON.parse(xhr.responseText)

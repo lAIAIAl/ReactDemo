@@ -5,7 +5,6 @@ import {
   Form,
   Input,
   Cascader,
-  Upload,
   Button,
   message
 }
@@ -22,6 +21,8 @@ import PicturesWall from './pictures-wall'
 import RichTextEditor from './rich-text-editor'
 
 import { reqAddOrUpdateProduct } from '../../../../api'
+
+
 
 const {Item} = Form
 const {TextArea} = Input

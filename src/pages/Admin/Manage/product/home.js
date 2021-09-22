@@ -45,8 +45,8 @@ export default class ProductHome extends Component {
             title: '状态',
             dataIndex: 'status',
             render:(status,product)=> {
-                let state = status == 0 ? '已下架':'在售'
-                let action = status == 0 ? '上架':'下架'
+                let state = status === 0 ? '已下架':'在售'
+                let action = status === 0 ? '上架':'下架'
                 return (<span>
                     <Button type='primary' onClick={()=>this.changeState(product.id,status)}>{action}</Button>
                     <span>{state}</span>
@@ -72,7 +72,7 @@ export default class ProductHome extends Component {
             content: '是否确定更新商品状态？',
             onOk:async()=>{
                 const status = await reqUpdateStatus(id,state)
-                if(status == 0){
+                if(status === 0){
                     message.success('更新商品成功')
                     this.searchProducts()
                 }

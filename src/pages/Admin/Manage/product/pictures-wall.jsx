@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Upload, Modal,message} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import {reqDeleteImg} from '../../../../api/index';
+import defaultUrl from '../../../../utils/current';
+
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -42,7 +44,7 @@ class PicturesWall extends Component {
         uid: -index, // 每个file都有自己唯一的id
         name: img, // 图片文件名
         status: 'done', // 图片状态: done-已上传, uploading: 正在上传中, removed: 已删除
-        url: 'http://localhost:8083/image/'+img
+        url: defaultUrl+'/image/'+img
       }))
     }
 
@@ -114,7 +116,7 @@ class PicturesWall extends Component {
     }
 
     // 在操作(上传/删除)过程中更新fileList状态
-    if(flag==0)
+    if(flag===0)
       this.setState({ fileList })
   };
 
@@ -129,7 +131,7 @@ class PicturesWall extends Component {
     return (
       <>
         <Upload
-          action="http://localhost:8083/request/add-picture"
+          action= {defaultUrl+"/request/add-picture"}
           listType="picture-card"
           accept='image/*'  /*只接受图片格式*/
           fileList={fileList}

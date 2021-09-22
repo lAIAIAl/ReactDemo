@@ -1,4 +1,4 @@
-export default [
+const arr = [
     {
       value: '1',
       label: '电器',
@@ -104,3 +104,5 @@ export default [
       ],
     },
   ];
+
+  export default arr
