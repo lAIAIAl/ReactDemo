@@ -4,6 +4,7 @@ import './index.less'
 import logo from '../../assets/logo2.jpg'
 import { Link ,withRouter} from 'react-router-dom';
 import menuList from '../../config/menuConfig';
+import memoryUtils from '../../utils/memoryUtils'
 const { SubMenu } = Menu;
 
 
@@ -18,14 +19,16 @@ class LeftNav extends Component {
       });
     };
     getMenuNodes = (menuList)=>{
+        const user = memoryUtils.user
         return menuList.map(item=>{
+            let disable = user.auth.indexOf(item.key) === -1
             if(!item.children)
             /*name,key,icon,children*/
-                return (<Menu.Item key={item.key} icon={item.icon}>
+                return (<Menu.Item key={item.key} icon={item.icon} disabled={disable}>
                             <Link to={item.key}>{item.name}</Link>
                         </Menu.Item>)
             else{
-                return (<SubMenu key={item.key} icon={item.icon} title={item.name}>
+                return (<SubMenu key={item.key} icon={item.icon} title={item.name} disabled={disable}>
                             {this.getMenuNodes(item.children)}
                         </SubMenu>)
             }
@@ -40,8 +43,6 @@ class LeftNav extends Component {
         const group = path.split('/')
         let selected = group.slice(0,3).join('/')
         path = path.indexOf('/product')===-1 ?path:group.slice(0,4).join('/')
-        console.log(selected,path)
-
         return (
             <div className='left-nav'>
                 <Link className='left-nav-header' to='/'>

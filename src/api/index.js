@@ -251,20 +251,19 @@ export const reqAddOrUpdateProduct = (product) =>{
 
 
 // 获取所有角色的列表
-/* export const reqRoles = () => ajax(BASE + '/manage/role/list') */
 export const reqRoles = () => ajax(defaultUrl+'/request/get-roles')
 // 添加角色
 export const reqAddRole = (roleName) => ajax(defaultUrl + '/request/add-role', {roleName}, 'POST')
 // 添加角色
-/* export const reqUpdateRole = (role) => ajax(BASE + '/manage/role/update', role, 'POST') */
 export const reqUpdateRole = (role) => ajax(defaultUrl + '/request/update-role', role, 'POST')
 
 // 获取所有用户的列表
-export const reqUsers = () => ajax(BASE + '/manage/user/list')
+/* export const reqUsers = () => ajax(BASE + '/manage/user/list') */
+export const reqUsers = () => ajax(defaultUrl + '/request/get-users')
 // 删除指定用户
-export const reqDeleteUser = (userId) => ajax(BASE + '/manage/user/delete', {userId}, 'POST')
+export const reqDeleteUser = (id) => ajax(defaultUrl + '/request/delete-user', {id}, 'POST')
 // 添加/更新用户
-export const reqAddOrUpdateUser = (user) => ajax(BASE + '/manage/user/'+(user._id ? 'update' : 'add'), user, 'POST')
+export const reqAddOrUpdateUser = (user) => ajax(defaultUrl + '/request/'+(user.user_id ? 'update' : 'add')+'-user', user, 'POST')
 
 /*
 json请求的接口请求函数

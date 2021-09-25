@@ -9,7 +9,8 @@ const menuList = [
         icon:<PieChartOutlined />,
         path:'/admin/home',
         name:'首页',
-        title:'首页'
+        title:'首页',
+        disabled:true
     },
     {
         key:'/admin/manage',
@@ -40,6 +41,7 @@ const menuList = [
         title:'图表',
         children:[
             {
+                disabled:true,
                 key:'/admin/charts/line',
                 icon:<PieChartOutlined />,
                 path:'/admin/charts/line',
@@ -47,6 +49,7 @@ const menuList = [
                 title:'线性图'
             },
             {
+                disabled:true,
                 key:'/admin/charts/bar',
                 icon:<MailOutlined />,
                 path:'/admin/charts/bar',
@@ -54,6 +57,7 @@ const menuList = [
                 title:'柱状图'
             },
             {
+                disabled:true,
                 key:'/admin/charts/pie',
                 icon:<MailOutlined />,
                 path:'/admin/charts/pie',

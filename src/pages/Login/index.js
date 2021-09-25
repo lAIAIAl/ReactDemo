@@ -19,6 +19,7 @@ export default class Login extends Component {
                     const user = response.data.userInfo;
                     memoryUtil.user = user;
                     storageUtils.saveUser(user);
+                    console.log(user)
                     this.props.history.replace('/admin/home');
                 }
 			},

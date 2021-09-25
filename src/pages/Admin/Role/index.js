@@ -79,7 +79,7 @@ export default class User extends Component {
             this.setState({
                 isShowAdd: false
             })
-            this.add.current.reset()
+            //this.add.current.reset()
             const result = await reqAddRole(roleName)
             if (result.status===0) {
                 message.success('添加角色成功')
@@ -114,7 +114,7 @@ export default class User extends Component {
       const result = await reqUpdateRole(role)
       console.log(result)
       if (result.status===0) {
-        if (role.id === memoryUtils.user.user_id) {
+        if (role.id === memoryUtils.user.role_id) {
             memoryUtils.user = {}
             storageUtils.removeUser()
             message.success('设置当前用户角色权限成功')

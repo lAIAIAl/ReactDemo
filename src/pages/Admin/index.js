@@ -22,6 +22,10 @@ export default class Admin extends Component {
         if(!user||!user.user_id){
             return <Redirect to="/login"/>
         }
+        //如果没有权限则返回home
+        if(user.auth.indexOf(this.props.location.pathname)===-1&&
+            !(this.props.location.pathname==='/admin/manage/product/product'&&user.auth.indexOf('/admin/manage/product')!==-1))
+            return <Redirect to="/admin/home"/>
         return (
             <Layout style={{height:"100%"}}>
                 <Sider>
@@ -31,7 +35,7 @@ export default class Admin extends Component {
                     <Header>Header</Header>
                     <Content style={{backgroundColor:'white',margin:'20px 15px'}}>
                         <Switch>
-                            <Route path='/admin/home' component={Home}></Route>
+                            <Route path='/admin/home' component={Home} ></Route>
                             <Route path='/admin/manage/category' component={Category}></Route>
                             <Route path='/admin/manage/product' component={Product}></Route>
                             <Route path='/admin/user' component={User}></Route>
@@ -42,7 +46,7 @@ export default class Admin extends Component {
                             <Redirect to='/admin/home'></Redirect>
                         </Switch>
                     </Content>
-                    <Footer style={{textAlign:'center',color:'#ccc'}}>盛锦不锈钢</Footer>
+                    <Footer style={{textAlign:'center',color:'#ccc'}}>wjcTest</Footer>
                 </Layout>
             </Layout>
         )

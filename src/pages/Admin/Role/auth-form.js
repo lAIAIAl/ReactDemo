@@ -64,7 +64,7 @@ export default class AuthForm extends PureComponent {
    */
   UNSAFE_componentWillReceiveProps (nextProps) {
     console.log('componentWillReceiveProps()', nextProps)
-    const menus = nextProps.role.menus
+    const menus = nextProps.role.auth.split(',')
     this.setState({
       checkedKeys: menus
     })
@@ -79,7 +79,6 @@ export default class AuthForm extends PureComponent {
       labelCol: { span: 4 },  // 左侧label的宽度
       wrapperCol: { span: 15 }, // 右侧包裹的宽度
     }
-
     return (
       <div>
         <Item label='角色名称' {...formItemLayout}>
