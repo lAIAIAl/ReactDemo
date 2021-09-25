@@ -18,9 +18,16 @@ const {  Footer, Sider, Content } = Layout;
 
 export default class Admin extends Component {
     render() {
-        const user = memoryUtil.user;
+        const user = memoryUtil.user
+        const a = new Date().getTime()
+        console.log(user)
         if(!user||!user.user_id){
             return <Redirect to="/login"/>
+        }
+        if(user.user_id){
+            const b = new Date(user.auth_key).getTime()
+            if(b<a)
+                return <Redirect to="/login"/>
         }
         //如果没有权限则返回home
         if(user.auth.indexOf(this.props.location.pathname)===-1&&

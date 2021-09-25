@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {
-  Icon,
+  /* Icon, */
   Card,
   /* Statistic, */
   DatePicker,
@@ -79,7 +79,7 @@ export default class Home extends Component {
             <Bar/>
           </Card>
 
-          <Card title='任务' extra={<Icon type="reload"/>} className="home-table-right">
+          <Card title='任务' /* extra={<Icon type="reload"/>} */ className="home-table-right">
             <Timeline>
               <Timeline.Item color="green">需求调研</Timeline.Item>
               <Timeline.Item color="green">网站设计</Timeline.Item>
