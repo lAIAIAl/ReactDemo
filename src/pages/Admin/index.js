@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import memoryUtil from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
 import {Route,Switch,Redirect} from 'react-router-dom'
 
 import { Layout } from 'antd';
@@ -26,8 +27,11 @@ export default class Admin extends Component {
         }
         if(user.user_id){
             const b = new Date(user.auth_key).getTime()
-            if(b<a)
+            if(b<a){
+                storageUtils.removeUser()
+                memoryUtil.user = {}
                 return <Redirect to="/login"/>
+            }
         }
         //如果没有权限则返回home
         if(user.auth.indexOf(this.props.location.pathname)===-1&&

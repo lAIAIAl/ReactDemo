@@ -1,5 +1,7 @@
 const CracoLessPlugin = require('craco-less');
 
+const {resolve} = require('path');
+
 module.exports = {
   plugins: [
     {
@@ -26,5 +28,8 @@ module.exports = {
          }
      ]
     ]
+ },
+ devServer:{
+  historyApiFallback: true
  }
 };
