@@ -45,8 +45,9 @@ export default class ProductHome extends Component {
             title: '状态',
             dataIndex: 'status',
             render:(status,product)=> {
-                let state = status === 0 ? '已下架':'在售'
-                let action = status === 0 ? '上架':'下架'
+                console.log(status)
+                let state = status === '0' ? '已下架':'在售'
+                let action = status === '0' ? '上架':'下架'
                 return (<span>
                     <Button type='primary' onClick={()=>this.changeState(product.id,status)}>{action}</Button>
                     <span>{state}</span>

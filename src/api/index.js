@@ -161,7 +161,7 @@ export const reqProducts = (conditions)=>{
 }
 export const reqUpdateStatus = (productId, status) =>{
   return new Promise((resolve,reject)=>{
-      const newStatus = status ===0? 1:0
+      const newStatus = status ==='0'? '1':'0'
       post(defaultUrl+'/request/update-products-status',{id:productId,status:newStatus}).then(
         response => {
             if(response.data.status===0)
