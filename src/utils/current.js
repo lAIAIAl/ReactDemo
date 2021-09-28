@@ -1,7 +1,7 @@
 
 
 //本地测试
-const URL = 'http://localhost:5001/api' 
+//const URL = 'http://localhost/api' 
 
-//const URL = 'http://alaiala.com/api'
+const URL = 'http://alaiala.com:5001/api'
 export default URL
