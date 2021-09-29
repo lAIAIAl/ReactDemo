@@ -12,18 +12,20 @@ import LinkButton from '../../../../components/link-button'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 import {PlusOutlined} from '@ant-design/icons'
-import {reqCategorys} from '../../../../api/index'
+import {reqAddCategory, reqCategorys, reqUpdateCategory} from '../../../../api/index'
 /*
 商品分类路由
  */
 export default class Category extends Component {
+    addRef = React.createRef()
+    updateRef = React.createRef()
     state = {
         loading: false, // 是否正在获取数据中
         categorys: [], // 一级分类列表
         subCategorys: [], // 二级分类列表
         parentId: '0', // 当前需要显示的分类列表的父分类ID
-      parentName: '', // 当前需要显示的分类列表的父分类名称
-      showStatus: 0, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
+        parentName: '', // 当前需要显示的分类列表的父分类名称
+        showStatus: 0, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
     }
       /*
       初始化Table所有列的数组
@@ -52,6 +54,13 @@ export default class Category extends Component {
       异步获取一级/二级分类列表显示
       parentId: 如果没有指定根据状态中的parentId请求, 如果指定了根据指定的请求
       */
+    componentWillMount () {
+        this.initColumns()
+    }
+    componentDidMount () {
+      // 获取一级分类列表显示
+        this.getCategorys(0)
+    }
     getCategorys = async (parentId) => {
       // 在发请求前, 显示loading
       this.setState({loading: true})
@@ -61,19 +70,19 @@ export default class Category extends Component {
       // 在请求完成后, 隐藏loading
       this.setState({loading: false})
       console.log(result)
-      if(result.status==='0') {
+      if(result.status===1) {
         // 取出分类数组(可能是一级也可能二级的)
         const categorys = result.data
         if(parentId==='0') {
           // 更新一级分类状态
           this.setState({
-            categorys
+            categorys,showStatus:0
           })
           console.log('----', this.state.categorys.length)
         } else {
           // 更新二级分类状态
           this.setState({
-            subCategorys: categorys
+            subCategorys: categorys,showStatus:0
           })
         }
       } else {
@@ -112,21 +121,55 @@ export default class Category extends Component {
     */
     showUpdate = (category) => {
         // 保存分类对象
-        message.warn({
-            content:'后端接口暂无'
+        this.currentCategory = category;
+
+        this.setState({
+          showStatus:2
         })
     }
-    componentWillMount () {
-        this.initColumns()
+    updateCategory =async()=>{
+      console.log(this.currentCategory)
+      const {name} = this.updateRef.current.getValues()
+      const {id} = this.currentCategory
+      this.currentCategory.name = name
+      const result = await reqUpdateCategory(id,name)
+      if(result.status===0){
+        message.success({
+          content:'修改成功'
+        })
+        this.getCategorys()
+      }
+      else{
+        message.warn({
+          content:'修改失败'
+        })
+        this.setState({showStatus:0})
+      }
     }
-    componentDidMount () {
-      // 获取一级分类列表显示
-        this.getCategorys(0)
+
+    handleCancel = ()=>{
+      this.setState({
+        showStatus:0
+      })
     }
     showAdd = ()=>{
-        message.warn({
-            content:'后端接口暂无'
+        this.setState({showStatus:1})
+    }
+    addCategory = async()=>{
+      const {name,parentId} = this.addRef.current.getValues()
+      const result = await reqAddCategory(name,parentId)
+      if(result.status===0) {
+        message.success({
+          content:'新增成功'
         })
+        this.getCategorys()
+      }
+      else{
+        message.warn({
+          content:'新增失败'
+        })
+        this.setState({showStatus:0})
+      }
     }
     render (){
         
@@ -153,7 +196,7 @@ export default class Category extends Component {
             <Card title={title} extra={extra}>
               <Table
                 bordered
-                rowKey='_id'
+                rowKey='id'
                 loading={loading}
                 dataSource={parentId==='0' ? categorys : subCategorys}
                 columns={this.columns}
@@ -169,7 +212,7 @@ export default class Category extends Component {
                 <AddForm
                   categorys={categorys}
                   parentId={parentId}
-                  setForm={(form) => {this.form = form}}
+                  ref={this.addRef}
                 />
               </Modal>
       
@@ -180,7 +223,7 @@ export default class Category extends Component {
                 onCancel={this.handleCancel}
               >
                 <UpdateForm
-                  setForm={(form) => {this.form = form}}
+                  ref={this.updateRef}
                 />
               </Modal>
             </Card>

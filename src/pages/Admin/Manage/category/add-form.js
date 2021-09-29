@@ -15,30 +15,28 @@ const Option = Select.Option
 class AddForm extends Component {
 
   static propTypes = {
-    setForm: PropTypes.func.isRequired, // 用来传递form对象的函数
     categorys: PropTypes.array.isRequired, // 一级分类的数组
     parentId: PropTypes.string.isRequired, // 父分类的ID
   }
-
-  componentWillMount () {
-    this.props.setForm(this.props.form)
+  formRef = React.createRef()
+  getValues =()=>{
+    return this.formRef.current.getFieldsValue()
   }
-
   render() {
     const {categorys, parentId} = this.props
 
     return (
-      <Form>
+      <Form ref={this.formRef}>
         <Item name='parentId' initialValue={parentId}>
               <Select>
-                <Option value='0'>一级分类</Option>
+                <Option value='0' key={0}>一级分类</Option>
                 {
-                  categorys.map(c => <Option value={c._id}>{c.name}</Option>)
+                  categorys.map(c => <Option value={c.id} key={c.id}>{c.name}</Option>)
                 }
               </Select>
         </Item>
 
-        <Item name='categoryName' rules={[
+        <Item name='name' rules={[
                 {required: true, message: '分类名称必须输入'}
               ]}>
               <Input placeholder='请输入分类名称'/>
