@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import {
   Form,
   Input
@@ -12,20 +12,18 @@ const Item = Form.Item
  */
 class UpdateForm extends Component {
   formRef = React.createRef()
-  static propTypes = {
-    categoryName: PropTypes.string.isRequired,
-  }
+
 
   getValues=()=>{
     return this.formRef.current.getFieldsValue()
   }
   render() {
 
-    const {categoryName} = this.props
+    //const {categoryName} = this.props
 
     return (
       <Form ref={this.formRef}>
-        <Item name='name' initialValue={categoryName} rules={[
+        <Item name='name' rules={[
             {required: true, message: '分类名称必须输入'}]}>
               <Input placeholder='请输入分类名称'/>
         </Item>

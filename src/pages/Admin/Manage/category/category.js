@@ -128,8 +128,13 @@ export default class Category extends Component {
         })
     }
     updateCategory =async()=>{
-      console.log(this.currentCategory)
       const {name} = this.updateRef.current.getValues()
+      if(!name){
+        message.warn({
+          content:'请输入类目名'
+        })
+        return
+      }
       const {id} = this.currentCategory
       this.currentCategory.name = name
       const result = await reqUpdateCategory(id,name)
