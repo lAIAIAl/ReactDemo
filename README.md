@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# 简介
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+个人练手的react后台管理项目,主要目的是熟悉整个react开发流程以及常用技术
 
-## Available Scripts
+## 运行说明
 
-In the project directory, you can run:
+本地运行直接下载,已经生成打包文件build,配置一下nginx,即可运行,可以参考src中的nginx.conf,后台api在http://alaiala.com/ 的80端口上
+此项目前端于http://alaiala.com:5001/ 端口运行,但是由于服务器过low(单核2G,内存经常爆炸),经常无法响应,因此想要看效果最好自行下载查看,服务器上的项目不嫌慢的话多等等刷新刷新就行
 
-### `yarn start`
+## `说明`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `文件说明`
+api文件夹中分别定义了axios封装和请求api
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+assets中定义了静态资源
 
-### `yarn test`
+components中定义了可复用组件
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+config中定义了静态配置项
 
-### `yarn build`
+pages中定义了路由组件
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+utils中定义了相关的工具以及登录状态保存的文件
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `工程化`
+使用的less,入口文件中引入了normal.css定义了基本样式
 
-### `yarn eject`
+封装了axios,定义了请求和响应拦截器,api统一放在api.js中
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+使用的Craco.config.js对webpack配置进行了一些修改,没有执行eject,保持了react脚手架的默认配置
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `css`
+主要使用的ui库为antd,craco.config中重置了默认主题色,没有做移动端适配,有时间再加上
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `js`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+主要是类式组件,也有部分使用的函数式hooks,有用到react-redux
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+使用的browserrouter,用的nginx解决的打包后文件运行时刷新页面根路径丢失问题
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+使用了echarts,一个静态展示组件
