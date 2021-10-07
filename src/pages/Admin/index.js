@@ -35,7 +35,7 @@ export default class Admin extends Component {
         }
         //如果没有权限则返回home
         if(user.auth.indexOf(this.props.location.pathname)===-1&&
-            !(this.props.location.pathname==='/admin/manage/product/product'&&user.auth.indexOf('/admin/manage/product')!==-1))
+            !(this.props.location.pathname.indexOf('/admin/manage/product/')!==-1&&user.auth.indexOf('/admin/manage/product')!==-1))
             return <Redirect to="/admin/home"/>
         return (
             <Layout style={{height:"100%"}}>
